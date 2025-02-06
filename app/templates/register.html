@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<h1>User Registration</h1>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.username.label }}
+        {{ form.username(size=32) }}
+        {% if form.username.errors %}
+        <ul class="errors">
+            {% for error in form.username.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.password.label }}
+        {{ form.password(size=32) }}
+        {% if form.password.errors %}
+        <ul class="errors">
+            {% for error in form.password.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.confirm_password.label }}
+        {{ form.confirm_password(size=32) }}
+        {% if form.confirm_password.errors %}
+        <ul class="errors">
+            {% for error in form.confirm_password.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.fullname.label }}
+        {{ form.fullname }}
+        {% if form.fullname.errors %}
+        <ul class="errors">
+            {% for error in form.fullname.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.qualification.label }}
+        {{ form.qualification }}
+        {% if form.qualification.errors %}
+        <ul class="errors">
+            {% for error in form.qualification.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.dob.label }}
+        {{ form.dob }}
+        {% if form.dob.errors %}
+        <ul class="errors">
+            {% for error in form.dob.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} - Quiz Master</title>
+    {% endblock %}
+    <style>
+        .errors li {
+            color: red;
+            font-size: 10px;
+        }
+
+        .flashes .success {
+            color: green;
+        }
+
+        .flashes .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+    </ul>
+    <div id="content">
+        {% if current_user.is_authenticated %}
+        Hi {{ current_user.fullname }}!
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>
