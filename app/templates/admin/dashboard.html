@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block head %}
+<style>
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 5px;
+        padding: 5px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+<div class="container">
+    <ul>
+        <li><a href="{{ url_for('manage_subjects') }}">Manage Subjects</a></li>
+        <li><a href="{{ url_for('manage_chapters') }}">Manage Chapters</a></li>
+        <li><a href="{{ url_for('manage_quizzes') }}">Manage Quizzes</a></li>
+        <li><a href="{{ url_for('manage_questions') }}">Manage Questions</a></li>
+        <li><a href="{{ url_for('manage_users') }}">Manage Users</a></li>
+        <li><a href="{{ url_for('manage_scores') }}">Manage Scores</a></li>
+    </ul>
+    <div>
+        <p>Use the management options from sidebar</p>
+    </div>
+</div>
+{% endblock %}

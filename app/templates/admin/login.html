@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Admin Login{% endblock %}
+{% block content %}
+<h1>Admin Login</h1>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.username.label }}
+        {{ form.username(size=32) }}
+        {% if form.username.errors %}
+        <ul class="errors">
+            {% for error in form.username.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.password.label }}
+        {{ form.password }}
+        {% if form.password.errors %}
+        <ul class="errors">
+            {% for error in form.password.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}

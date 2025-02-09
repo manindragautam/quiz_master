@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Manage Quizzes{% endblock %}
+{% block content %}
+<h1>Manage Quizzes</h1>
+<table>
+    <thead>
+        <tr>
+
+            <th>Id</th>
+            <th>Date of Quiz</th>
+            <th>Time Duration</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for quiz in quizzes %}
+        <tr>
+            <td>{{ quiz.id }}</td>
+            <td>{{ quiz.date_of_quiz }}</td>
+            <td>{{ quiz.time_duration }}</td>
+            <td>
+                <a href="#">Edit</a>
+            </td>
+            <td>
+                <a href="#">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Manage Questions{% endblock %}
+{% block content %}
+<h1>Manage Questions</h1>
+<table>
+    <thead>
+        <tr>
+
+            <th>Id</th>
+            <th>Question Statement</th>
+            <th>Correct Option</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for question in questions %}
+        <tr>
+            <td>{{ question.id }}</td>
+            <td>{{ question.question_statement }}</td>
+            <td>{{ question.correct_option }}</td>
+            <td>
+                <a href="#">Edit</a>
+            </td>
+            <td>
+                <a href="#">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

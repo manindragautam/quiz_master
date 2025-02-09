@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Manage Chapters{% endblock %}
+{% block content %}
+<h1>Manage Chapters</h1>
+<table>
+    <thead>
+        <tr>
+
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for chapter in chapters %}
+        <tr>
+            <td>{{ chapter.id }}</td>
+            <td>{{ chapter.name }}</td>
+            <td>{{ chapter.description }}</td>
+            <td>
+                <a href="#">Edit</a>
+            </td>
+            <td>
+                <a href="#">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

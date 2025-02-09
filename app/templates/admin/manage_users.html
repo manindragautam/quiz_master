@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Manage Users{% endblock %}
+{% block content %}
+<h1>Manage Users</h1>
+<table>
+    <thead>
+        <tr>
+
+            <th>Id</th>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Qualification</th>
+            <th>Date of Birth</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.fullname }}</td>
+            <td>{{ user.qualification }}</td>
+            <td>{{ user.dob }}</td>
+            <td>
+                <a href="#">Edit</a>
+            </td>
+            <td>
+                <a href="#">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
