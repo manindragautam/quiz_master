@@ -1,9 +1,22 @@
 {% extends "layout.html" %}
 {% block title %}Attempt Quiz: {{quiz.name}}{% endblock %}
 {% block content %}
+{% block head %}
+{{ super() }}
+<style>
+    .timer {
+        color: red;
+        font-size: 12px;
+    }
+</style>
+{% endblock %}
 <h2>{{quiz.name}}</h2>
-
-<form method="post">
+{% if quiz.time_duration > 0 %}
+<div class="timer">
+    <span id="timer">00:00</span>
+</div>
+{% endif %}
+<form id="quizForm" method="post">
     <div>
         {% for question in questions %}
         <div>
@@ -30,4 +43,29 @@
     </div>
     <button type="submit">Submit Quiz</button>
 </form>
+
+<script>
+    const quizDuration = {{ quiz.time_duration }};
+    if (quizDuration > 0) {
+        let timeLeft = quizDuration;
+
+        function updateTimer() {
+            let minutes = Math.floor(timeLeft / 60)
+            let seconds = timeLeft % 60
+            document.getElementById("timer").textContent = `
+    ${minutes.toString().padStart(2, '0')}:
+    ${seconds.toString().padStart(2, '0')}
+    `
+            if (timeLeft <= 0) {
+                clearInterval(timeInterval);
+                alert("Time's up! Your quiz will be submitted automatically.");
+                document.getElementById("quizForm").submit()
+            } else {
+                timeLeft--;
+            }
+        }
+
+        const timeInterval = setInterval(updateTimer, 1000)
+    }
+</script>
 {% endblock %}

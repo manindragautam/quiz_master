@@ -4,6 +4,7 @@ from app.forms import RegisterForm, LoginForm, SubjectForm, ChapterForm, QuizFor
 from app.models import User, Subject, Chapter, Quiz, Question, Score
 from flask_login import current_user, login_user, login_required, logout_user
 from seed import seed_database
+from random import shuffle
 import os
 
 app = create_app()
@@ -346,7 +347,8 @@ def dashboard():
 @login_required
 def attempt_quiz(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
-    questions = quiz.questions
+    questions = quiz.questions.copy()
+    shuffle(questions)
     if request.method == 'POST':
         score = 0
         for question in questions:

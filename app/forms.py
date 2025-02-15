@@ -30,7 +30,7 @@ class ChapterForm(FlaskForm):
 class QuizForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     date_of_quiz = DateTimeLocalField('Date of Quiz', validators=[DataRequired()])
-    time_duration = IntegerField('Time Duration (In seconds)', validators=[DataRequired()])
+    time_duration = IntegerField('Time Duration (In seconds)')
     chapter_id = SelectField('Chapter', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Submit')
 
