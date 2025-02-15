@@ -1,6 +1,11 @@
-{% extends "admin/dashboard.html" %}
+{% extends "admin/layout.html" %}
 {% block title %}Manage Quizzes{% endblock %}
 {% block crud %}
+<style>
+    th:nth-last-child(1) {
+        width: 30%;
+    }
+</style>
 <h2>Manage Quizzes</h2>
 <a href="{{ url_for('add_quiz') }}">Add Quiz</a>
 <table>
@@ -11,8 +16,7 @@
             <th>Name</th>
             <th>Date of Quiz</th>
             <th>Time Duration</th>
-            <th></th>
-            <th></th>
+            <th colspan="3">Actions</th>
         </tr>
     </thead>
     <tbody>

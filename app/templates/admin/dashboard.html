@@ -1,28 +1,66 @@
-{% extends "layout.html" %}
+{% extends "admin/layout.html" %}
 {% block title %}Admin Dashboard{% endblock %}
-{% block head %}
+{% block adminHead %}
 <style>
-    .container {
+    .chart-container {
         display: grid;
-        grid-template-columns: 1fr 3fr;
-        gap: 5px;
-        padding: 5px;
+        grid-template-columns: 2fr 1fr;
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
-{% block content %}
+{% block crud %}
 <h1>Admin Dashboard</h1>
-<div class="container">
-    <ul>
-        <li><a href="{{ url_for('manage_subjects') }}">Manage Subjects</a></li>
-        <li><a href="{{ url_for('manage_chapters') }}">Manage Chapters</a></li>
-        <li><a href="{{ url_for('manage_quizzes') }}">Manage Quizzes</a></li>
-        
-        <li><a href="{{ url_for('manage_users') }}">Manage Users</a></li>
-    </ul>
+<div class="chart-container">
     <div>
-        {% block crud %}
-        {% endblock %}
+        <h4>Average Scores</h4>
+        <canvas id="averageScoresChart"></canvas>
+    </div>
+    <div>
+        <h4>Completion Rates</h4>
+        <canvas id="completionRatesChart"></canvas>
     </div>
 </div>
+
+<script>
+    const ctx = document.getElementById('averageScoresChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ quiz_names|tojson }},
+            datasets: [{
+                label: 'Average Score',
+                data: {{ average_scores|tojson }},
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctx1 = document.getElementById('completionRatesChart')
+
+    new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: {{ quiz_names|tojson }},
+            datasets: [{
+                label: 'Completion Rate',
+                data: {{ completion_rates|tojson }},
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        }
+    })
+</script>
 {% endblock %}
