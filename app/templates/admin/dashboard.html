@@ -17,12 +17,12 @@
         <li><a href="{{ url_for('manage_subjects') }}">Manage Subjects</a></li>
         <li><a href="{{ url_for('manage_chapters') }}">Manage Chapters</a></li>
         <li><a href="{{ url_for('manage_quizzes') }}">Manage Quizzes</a></li>
-        <li><a href="{{ url_for('manage_questions') }}">Manage Questions</a></li>
+        
         <li><a href="{{ url_for('manage_users') }}">Manage Users</a></li>
-        <li><a href="{{ url_for('manage_scores') }}">Manage Scores</a></li>
     </ul>
     <div>
-        <p>Use the management options from sidebar</p>
+        {% block crud %}
+        {% endblock %}
     </div>
 </div>
 {% endblock %}

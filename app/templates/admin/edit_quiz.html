@@ -1,0 +1,55 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Edit Quiz{% endblock %}
+{% block crud %}
+<h2>Edit Quiz</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.name.label }}
+        {{ form.name }}
+        {% if form.name.errors %}
+        <ul class="errors">
+            {% for error in form.name.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.date_of_quiz.label }}
+        {{ form.date_of_quiz }}
+        {% if form.date_of_quiz.errors %}
+        <ul class="errors">
+            {% for error in form.date_of_quiz.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.time_duration.label }}
+        {{ form.time_duration }}
+        {% if form.time_duration.errors %}
+        <ul class="errors">
+            {% for error in form.time_duration.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.chapter_id.label }}
+        {{ form.chapter_id }}
+        {% if form.chapter_id.errors %}
+        <ul class="errors">
+            {% for error in form.chapter_id.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}

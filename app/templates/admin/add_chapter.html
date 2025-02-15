@@ -1,0 +1,44 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Add Chapter{% endblock %}
+{% block crud %}
+<h2>Add Chapter</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.name.label }}
+        {{ form.name }}
+        {% if form.name.errors %}
+        <ul class="errors">
+            {% for error in form.name.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.description.label }}
+        {{ form.description }}
+        {% if form.description.errors %}
+        <ul class="errors">
+            {% for error in form.description.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.subject_id.label }}
+        {{ form.subject_id }}
+        {% if form.subject_id.errors %}
+        <ul class="errors">
+            {% for error in form.subject_id.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}

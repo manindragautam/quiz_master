@@ -1,0 +1,77 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Add Question{% endblock %}
+{% block crud %}
+<h2>Add Question for {{ quiz_id }}</h2>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.question_statement.label }}
+        {{ form.question_statement }}
+        {% if form.question_statement.errors %}
+        <ul class="errors">
+            {% for error in form.question_statement.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.option1.label }}
+        {{ form.option1 }}
+        {% if form.option1.errors %}
+        <ul class="errors">
+            {% for error in form.option1.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.option2.label }}
+        {{ form.option2 }}
+        {% if form.option2.errors %}
+        <ul class="errors">
+            {% for error in form.option2.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.option3.label }}
+        {{ form.option3 }}
+        {% if form.option3.errors %}
+        <ul class="errors">
+            {% for error in form.option3.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.option4.label }}
+        {{ form.option4 }}
+        {% if form.option4.errors %}
+        <ul class="errors">
+            {% for error in form.option4.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.correct_option.label }}
+        {{ form.correct_option }}
+        {% if form.correct_option.errors %}
+        <ul class="errors">
+            {% for error in form.correct_option.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}

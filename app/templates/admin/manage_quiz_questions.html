@@ -1,0 +1,27 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Manage Quiz Questions{% endblock %}
+{% block crud %}
+<h2>Manage Questions for {{ quiz.name }}</h2>
+<a href="{{ url_for('add_question', quiz_id=quiz.id) }}">Add Quiz Question</a>
+<div>
+    {% for question in questions %}
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Statement</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.question_statement }}</td>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+{% endblock %}
