@@ -6,6 +6,18 @@
     <title>{% block title %}{% endblock %} - Quiz Master</title>
     {% endblock %}
     <style>
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 5px;
+            padding: 5px;
+        }
+
+        .key-value {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
         .errors li {
             color: red;
             font-size: 10px;
@@ -39,8 +51,9 @@
         th:nth-child(1) {
             width: 10%;
         }
+
         th:nth-last-child(1) {
-            width: 20%;
+            width: 10%;
         }
     </style>
 </head>
@@ -68,7 +81,20 @@
         {% if current_user.is_authenticated %}
         Hi {{ current_user.fullname }}!
         {% endif %}
-        {% block content %}{% endblock %}
+        <div class="container">
+            <div>
+                {% if current_user.is_authenticated %}
+                <ul>
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                    <li><a href="{{ url_for('select_quiz') }}">Select Quiz</a></li>
+                </ul>
+                {% endif %}
+            </div>
+            <div>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
     </div>
 </body>
 

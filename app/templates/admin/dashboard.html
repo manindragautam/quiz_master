@@ -1,6 +1,7 @@
 {% extends "admin/layout.html" %}
 {% block title %}Admin Dashboard{% endblock %}
-{% block adminHead %}
+{% block head %}
+{{ super() }}
 <style>
     .chart-container {
         display: grid;
@@ -9,7 +10,7 @@
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
-{% block crud %}
+{% block content %}
 <h1>Admin Dashboard</h1>
 <div class="chart-container">
     <div>

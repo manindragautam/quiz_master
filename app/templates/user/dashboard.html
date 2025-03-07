@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}User Dashboard{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+    .user-profile {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1>User Dashboard</h1>
+
+<div class="user-profile">
+    <div class="details">
+        <h4>Your Details</h4>
+        <div class="key-value">
+            <span>Username: </span>
+            <span>{{ current_user.username }}</span>
+
+            <span>Full Name: </span>
+            <span>{{ current_user.fullname }}</span>
+
+            <span>Qualification: </span>
+            <span>{{ current_user.qualification }}</span>
+
+            <span>DOB: </span>
+            <span>{{ current_user.dob }}</span>
+        </div>
+    </div>
+    <div class="stats">
+        <h4>Progress Summary</h4>
+        <div class="key-value">
+            <span>Total Attempted Quizzes: </span>
+            <span>{{ total_attempted_quizzes }}</span>
+
+            <span>Average Score: </span>
+            <span>{{ average_score|round(2) }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="quiz-history">
+    <h4>Quiz History</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Quiz Name</th>
+                <th>Attempted Time</th>
+                <th>Total Scored</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in scores %}
+            <tr>
+                <td>{{ score.quiz.name }}</td>
+                <td>{{ score.timestamp.strftime("%Y-%m-%d %H:%M") }}</td>
+                <td>{{ score.total_scored }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

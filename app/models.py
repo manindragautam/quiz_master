@@ -17,6 +17,10 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+    @classmethod
+    def get_all_users(cls):
+        return cls.query.filter(cls.username != "admin@quiz.com").all()
 
 class Subject(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -41,6 +45,7 @@ class Quiz(db.Model):
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
 
     questions = db.relationship('Question', backref='quiz', lazy=True)
+    scores = db.relationship('Score', backref='quiz', lazy=True)
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)

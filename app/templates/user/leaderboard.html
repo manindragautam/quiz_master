@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Leaderboard{% endblock %}
+{% block head %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+{% block content %}
+<h1>Leaderboard</h1>
+
+<div>
+    <canvas id="leaderboardChart"></canvas>
+</div>
+
+<script>
+    const ctx = document.getElementById('leaderboardChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ user_fullnames|tojson }},
+            datasets: [{
+                label: 'Total Score',
+                data: {{ user_total_scores|tojson }},
+                borderWidth: 1,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+            }],
+        },
+        options: {
+            indexAxis: 'y',  // Makes the chart horizontal
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Total Score'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Users'
+                    }
+                }
+            }
+        }
+    })
+</script>
+{% endblock %}

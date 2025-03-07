@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Select Quiz{% endblock %}
+{% block content %}
+<h1>Select Quiz</h1>
+<form method="post">
+    <div>
+        <label for="subject_id">Select Subject</label>
+        <select id="subject_id" name="subject_id">
+            <option value="">--Select Subject--</option>
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}">{{ subject.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="chapter_id">Select Chapter</label>
+        <select id="chapter_id" name="chapter_id">
+            <option value="">--Select Chapter--</option>
+            {% for chapter in chapters %}
+            <option value="{{ chapter.id }}" data-subject-id="{{ chapter.subject_id }}">{{ chapter.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit">Filter Quizzes</button>
+</form>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Date of Quiz</th>
+                <th>Time Duration (In Minutes)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quiz in quizzes %}
+            <tr>
+                <td>{{ quiz.id }}</td>
+                <td>{{ quiz.name }}</td>
+                <td>{{ quiz.date_of_quiz.strftime("%Y-%m-%d") }}</td>
+                <td>{{ quiz.time_duration / 60 }}</td>
+                <td><a href="{{ url_for('attempt_quiz', quiz_id=quiz.id) }}">Attempt</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.getElementById('subject_id').addEventListener('change', function () {
+        subjectId = this.value;
+        chapters = document.querySelectorAll('#chapter_id option')
+
+        chapters.forEach(option => {
+            if (option.dataset.subjectId == subjectId || option.value == "") {
+                option.style.display = "block";
+            } else {
+                option.style.display = "none";
+            }
+        });
+    })
+</script>
+{% endblock %}

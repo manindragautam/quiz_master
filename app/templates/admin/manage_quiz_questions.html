@@ -1,6 +1,6 @@
 {% extends "admin/layout.html" %}
 {% block title %}Manage Quiz Questions{% endblock %}
-{% block crud %}
+{% block content %}
 <h2>Manage Questions for {{ quiz.name }}</h2>
 <a href="{{ url_for('add_question', quiz_id=quiz.id) }}">Add Quiz Question</a>
 <div>
