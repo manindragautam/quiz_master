@@ -1,6 +1,11 @@
 from app import db
-from app.models import User, Subject, Chapter, Quiz, Question, Score
 from datetime import datetime
+from app.models.chapter import Chapter
+from app.models.question import Question
+from app.models.quiz import Quiz
+from app.models.score import Score
+from app.models.subject import Subject
+from app.models.user import User
 
 # Sample data
 users_data = [

@@ -65,9 +65,9 @@
     {% endwith %}
     <ul>
         {% if current_user.is_authenticated %}
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
         {% else %}
-        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
         {% endif %}
     </ul>
     <div id="content">
@@ -76,12 +76,12 @@
         {% endif %}
         <div class="container">
             <ul>
-                <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('manage_subjects') }}">Manage Subjects</a></li>
-                <li><a href="{{ url_for('manage_chapters') }}">Manage Chapters</a></li>
-                <li><a href="{{ url_for('manage_quizzes') }}">Manage Quizzes</a></li>
+                <li><a href="{{ url_for('admin.admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('admin.manage_subjects') }}">Manage Subjects</a></li>
+                <li><a href="{{ url_for('admin.manage_chapters') }}">Manage Chapters</a></li>
+                <li><a href="{{ url_for('admin.manage_quizzes') }}">Manage Quizzes</a></li>
 
-                <li><a href="{{ url_for('manage_users') }}">Manage Users</a></li>
+                <li><a href="{{ url_for('admin.manage_users') }}">Manage Users</a></li>
             </ul>
             <div>
                 {% block content %}{% endblock %}

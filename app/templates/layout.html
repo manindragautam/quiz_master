@@ -70,11 +70,11 @@
     {% endwith %}
     <ul>
         <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
+        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
         {% if current_user.is_authenticated %}
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
         {% else %}
-        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
         {% endif %}
     </ul>
     <div id="content">
@@ -85,9 +85,9 @@
             <div>
                 {% if current_user.is_authenticated %}
                 <ul>
-                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
-                    <li><a href="{{ url_for('select_quiz') }}">Select Quiz</a></li>
+                    <li><a href="{{ url_for('users.dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('users.leaderboard') }}">Leaderboard</a></li>
+                    <li><a href="{{ url_for('users.select_quiz') }}">Select Quiz</a></li>
                 </ul>
                 {% endif %}
             </div>

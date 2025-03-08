@@ -42,7 +42,7 @@
                 <td>{{ quiz.name }}</td>
                 <td>{{ quiz.date_of_quiz.strftime("%Y-%m-%d") }}</td>
                 <td>{{ quiz.time_duration / 60 }}</td>
-                <td><a href="{{ url_for('attempt_quiz', quiz_id=quiz.id) }}">Attempt</a></td>
+                <td><a href="{{ url_for('users.attempt_quiz', quiz_id=quiz.id) }}">Attempt</a></td>
             </tr>
             {% endfor %}
         </tbody>
