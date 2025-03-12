@@ -1,25 +1,26 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<h1>Login</h1>
+<h1 class="page-title">Login</h1>
+
 <form method="post">
     {{ form.hidden_tag() }}
-    <div>
-        {{ form.username.label }}
-        {{ form.username(size=32) }}
+    <div class="form-group">
+        {{ form.username.label(class_="form-label") }}
+        {{ form.username(size=32, class_="form-control") }}
         {% if form.username.errors %}
-        <ul class="errors">
+        <ul class="errors text-danger mt-2">
             {% for error in form.username.errors %}
             <li>{{ error }}</li>
             {% endfor %}
         </ul>
         {% endif %}
     </div>
-    <div>
-        {{ form.password.label }}
-        {{ form.password }}
+    <div class="form-group">
+        {{ form.password.label(class_="form-label") }}
+        {{ form.password(class_="form-control") }}
         {% if form.password.errors %}
-        <ul class="errors">
+        <ul class="errors text-danger mt-2">
             {% for error in form.password.errors %}
             <li>{{ error }}</li>
             {% endfor %}
@@ -27,7 +28,7 @@
         {% endif %}
     </div>
     <div>
-        {{ form.submit }}
+        {{ form.submit(class_="btn btn-primary") }}
     </div>
 </form>
 {% endblock %}

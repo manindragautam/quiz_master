@@ -1,38 +1,34 @@
-{% extends "admin/layout.html" %}
+{% extends "layout.html" %}
 {% block title %}Manage Users{% endblock %}
 {% block content %}
-<h2>Manage Users</h2>
-<table>
-    <thead>
-        <tr>
+<h1 class="page-title">Manage Users</h1>
 
-            <th>Id</th>
-            <th>Username</th>
-            <th>Full Name</th>
-            <th>Qualification</th>
-            <th>Date of Birth</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-        {% if user.username != "admin@quiz.com" %}
-        <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.fullname }}</td>
-            <td>{{ user.qualification }}</td>
-            <td>{{ user.dob }}</td>
-            <td>
-                <a href="#">Edit</a>
-            </td>
-            <td>
-                <a href="#">Delete</a>
-            </td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-    </tbody>
-</table>
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Id</th>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Qualification</th>
+                <th>Date of Birth</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            {% if user.username != "admin@quiz.com" %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.fullname }}</td>
+                <td>{{ user.qualification }}</td>
+                <td>{{ user.dob }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %}

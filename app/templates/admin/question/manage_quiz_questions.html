@@ -1,10 +1,12 @@
-{% extends "admin/layout.html" %}
+{% extends "layout.html" %}
 {% block title %}Manage Quiz Questions{% endblock %}
 {% block content %}
-<h2>Manage Questions for {{ quiz.name }}</h2>
-<a href="{{ url_for('admin.add_question', quiz_id=quiz.id) }}">Add Quiz Question</a>
-<div>
-    <table>
+<h1 class="page-title">Manage Questions for {{ quiz.name }}</h1>
+
+<a href="{{ url_for('admin.add_question', quiz_id=quiz.id) }}" class="btn btn-primary mb-4">Add Quiz Question</a>
+
+<div class="table-container">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -17,11 +19,15 @@
             <tr>
                 <td>{{ question.id }}</td>
                 <td>{{ question.question_statement }}</td>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
+
+                <td colspan="2" class="action-buttons">
+                    <a href="#" class="btn btn-edit btn-sm">Edit</a>
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+
 {% endblock %}

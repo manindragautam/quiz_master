@@ -1,6 +1,73 @@
-{% extends "layout.html" %}
-{% block title %}Home{% endblock %}
-{% block content %}
-<h1>Welcome to the Quiz Master!</h1>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Master - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="navbar-brand">Quiz Master</a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="{{ url_for('auth.login') }}" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="{{ url_for('auth.register') }}" class="nav-link">Register</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container" style="margin-top: 60px;">
+        <!-- Hero Section -->
+        <section class="text-center p-6">
+            <h1 class="font-bold" style="font-size: 2.75rem; margin-bottom: 1.5rem;">Welcome to Quiz Master</h1>
+            <p class="text-lg text-gray mb-6" style="max-width: 800px; margin-left: auto; margin-right: auto;">
+                Test your knowledge, track your progress, and compete with others on our interactive learning platform.
+                Join thousands of users who are mastering topics through our engaging quizzes.
+            </p>
+            <div class="d-flex justify-content-center gap-4 mb-6">
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">Get Started</a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">Sign In</a>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section class="mb-6">
+            <div class="row gap-6">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="mb-3">Diverse Quiz Topics</h3>
+                            <p>Explore a wide range of subjects and chapters. From mathematics to literature, science to history, we've got quizzes for every interest.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="mb-3">Track Your Progress</h3>
+                            <p>Monitor your performance with detailed analytics. See your scores, track improvements, and identify areas for growth.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="mb-3">Compete & Compare</h3>
+                            <p>Check the leaderboard to see how you stack up against other quiz-takers. Challenge yourself to climb the rankings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action -->
+        <section class="text-center p-6 mb-6 bg-primary rounded-lg text-white">
+            <h2 class="mb-3 text-white">Ready to Test Your Knowledge?</h2>
+            <p class="mb-4">Join our community of learners today and start your journey to mastery.</p>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-lg" style="background-color: white; color: var(--primary);">Create Your Account</a>
+        </section>
+    </div>
 
+</body>
+</html>

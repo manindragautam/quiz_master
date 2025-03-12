@@ -1,25 +1,28 @@
-{% extends "admin/layout.html" %}
+{% extends "layout.html" %}
 {% block title %}Admin Dashboard{% endblock %}
 {% block head %}
 {{ super() }}
-<style>
-    .chart-container {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-    }
-</style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 {% block content %}
-<h1>Admin Dashboard</h1>
-<div class="chart-container">
-    <div>
-        <h4>Average Scores</h4>
-        <canvas id="averageScoresChart"></canvas>
+<h1 class="page-title">Admin Dashboard</h1>
+
+<div class="row gap-6">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="mb-3">Average Scores</h3>
+                <canvas id="averageScoresChart"></canvas>
+            </div>
+        </div>
     </div>
-    <div>
-        <h4>Completion Rates</h4>
-        <canvas id="completionRatesChart"></canvas>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="mb-3">Completion Rates</h3>
+                <canvas id="completionRatesChart"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -29,20 +32,20 @@
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: {{ quiz_names|tojson }},
-            datasets: [{
-                label: 'Average Score',
-                data: {{ average_scores|tojson }},
-                borderWidth: 1
+            labels: {{ quiz_names| tojson }},
+        datasets: [{
+            label: 'Average Score',
+            data: {{ average_scores| tojson }},
+        borderWidth: 1
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
+        scales: {
+            y: {
+                beginAtZero: true
             }
         }
+    }
     });
 
     const ctx1 = document.getElementById('completionRatesChart')
@@ -50,11 +53,11 @@
     new Chart(ctx1, {
         type: 'pie',
         data: {
-            labels: {{ quiz_names|tojson }},
-            datasets: [{
-                label: 'Completion Rate',
-                data: {{ completion_rates|tojson }},
-                hoverOffset: 4
+            labels: {{ quiz_names| tojson }},
+        datasets: [{
+            label: 'Completion Rate',
+            data: {{ completion_rates| tojson }},
+        hoverOffset: 4
             }]
         }
     })

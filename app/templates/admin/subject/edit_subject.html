@@ -1,25 +1,26 @@
-{% extends "admin/layout.html" %}
+{% extends "layout.html" %}
 {% block title %}Edit Subject{% endblock %}
 {% block content %}
-<h2>Edit Subject</h2>
+<h1 class="page-title">Edit Subject</h1>
+
 <form method="post">
     {{ form.hidden_tag() }}
-    <div>
-        {{ form.name.label }}
-        {{ form.name }}
+    <div class="form-group">
+        {{ form.name.label(class_="form-label") }}
+        {{ form.name(class_="form-control") }}
         {% if form.name.errors %}
-        <ul class="errors">
+        <ul class="errors text-danger mt-2">
             {% for error in form.name.errors %}
             <li>{{ error }}</li>
             {% endfor %}
         </ul>
         {% endif %}
     </div>
-    <div>
-        {{ form.description.label }}
-        {{ form.description }}
+    <div class="form-group">
+        {{ form.description.label(class_="form-label") }}
+        {{ form.description(class_="form-control") }}
         {% if form.description.errors %}
-        <ul class="errors">
+        <ul class="errors text-danger mt-2">
             {% for error in form.description.errors %}
             <li>{{ error }}</li>
             {% endfor %}
@@ -27,7 +28,7 @@
         {% endif %}
     </div>
     <div>
-        {{ form.submit }}
+        {{ form.submit(class_="btn btn-primary btn-block") }}
     </div>
 </form>
 {% endblock %}

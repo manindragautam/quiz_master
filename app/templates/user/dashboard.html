@@ -1,66 +1,82 @@
 {% extends "layout.html" %}
 {% block title %}User Dashboard{% endblock %}
-{% block head %}
-{{ super() }}
-<style>
-    .user-profile {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-</style>
-{% endblock %}
 {% block content %}
-<h1>User Dashboard</h1>
+<h1 class="page-title">User Dashboard</h1>
 
-<div class="user-profile">
-    <div class="details">
-        <h4>Your Details</h4>
-        <div class="key-value">
-            <span>Username: </span>
-            <span>{{ current_user.username }}</span>
+<section class="mb-6">
+    <div class="row gap-6">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="mb-3">Your Details</h3>
+                    <div class="detail-item">
+                        <span class="detail-key">Username:</span>
+                        <span class="detail-value">{{ current_user.username }}</span>
+                    </div>
 
-            <span>Full Name: </span>
-            <span>{{ current_user.fullname }}</span>
+                    <div class="detail-item">
+                        <span class="detail-key">Full Name:</span>
+                        <span class="detail-value">{{ current_user.fullname }}</span>
+                    </div>
 
-            <span>Qualification: </span>
-            <span>{{ current_user.qualification }}</span>
+                    <div class="detail-item">
+                        <span class="detail-key">Qualification:</span>
+                        <span class="detail-value">{{ current_user.qualification }}</span>
+                    </div>
 
-            <span>DOB: </span>
-            <span>{{ current_user.dob }}</span>
+                    <div class="detail-item">
+                        <span class="detail-key">DOB:</span>
+                        <span class="detail-value">{{ current_user.dob }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="mb-3">Progress Summary</h3>
+                    <div class="detail-item">
+                        <span class="detail-key">Total Attempted Quizzes:</span>
+                        <span class="detail-value">{{ total_attempted_quizzes }}</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-key">Average Score:</span>
+                        <span class="detail-value">{{ average_score|round(2) }}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="stats">
-        <h4>Progress Summary</h4>
-        <div class="key-value">
-            <span>Total Attempted Quizzes: </span>
-            <span>{{ total_attempted_quizzes }}</span>
+</section>
 
-            <span>Average Score: </span>
-            <span>{{ average_score|round(2) }}</span>
+<section class="mb-6">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="mb-3">Quiz History</h3>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Quiz Name</th>
+                            <th>Attempted Time</th>
+                            <th>Total Scored</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for score in scores %}
+                        <tr>
+                            <td>{{ score.quiz.name }}</td>
+                            <td>{{ score.timestamp.strftime("%Y-%m-%d %H:%M") }}</td>
+                            <td>{{ score.total_scored }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="quiz-history">
-    <h4>Quiz History</h4>
-    <table>
-        <thead>
-            <tr>
-                <th>Quiz Name</th>
-                <th>Attempted Time</th>
-                <th>Total Scored</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for score in scores %}
-            <tr>
-                <td>{{ score.quiz.name }}</td>
-                <td>{{ score.timestamp.strftime("%Y-%m-%d %H:%M") }}</td>
-                <td>{{ score.total_scored }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+</section>
 
 {% endblock %}

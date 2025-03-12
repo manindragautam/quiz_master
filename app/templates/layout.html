@@ -2,100 +2,59 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head %}
     <title>{% block title %}{% endblock %} - Quiz Master</title>
     {% endblock %}
-    <style>
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 5px;
-            padding: 5px;
-        }
-
-        .key-value {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .errors li {
-            color: red;
-            font-size: 10px;
-        }
-
-        .flashes .success {
-            color: green;
-        }
-
-        .flashes .error {
-            color: red;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            table-layout: fixed;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f0f0f0;
-        }
-
-        th:nth-child(1) {
-            width: 10%;
-        }
-
-        th:nth-last-child(1) {
-            width: 10%;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
 </head>
 
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <ul class="flashes">
-        {% for category, message in messages %}
-        <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="navbar-brand">Quiz Master</a>
+        <ul class="navbar-nav">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item"><a href="{{ url_for('auth.logout') }}" class="nav-link">Logout</a></li>
+            {% else %}
+            <li class="nav-item"><a href="{{ url_for('auth.login') }}" class="nav-link">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Left Drawer -->
+    {% if current_user.is_authenticated %}
+        <aside class="drawer">
+            {% if current_user.is_admin %}
+            <a href="{{ url_for('admin.admin_dashboard') }}" class="nav-link">Dashboard</a>
+            <a href="{{ url_for('admin.manage_subjects') }}" class="nav-link">Manage Subjects</a>
+            <a href="{{ url_for('admin.manage_chapters') }}" class="nav-link">Manage Chapters</a>
+            <a href="{{ url_for('admin.manage_quizzes') }}" class="nav-link">Manage Quizzes</a>
+            <a href="{{ url_for('admin.manage_users') }}" class="nav-link">Manage Users</a>
+            {% else %}
+            <a href="{{ url_for('users.dashboard') }}" class="nav-link">Dashboard</a>
+            <a href="{{ url_for('users.leaderboard') }}" class="nav-link">Leaderboard</a>
+            <a href="{{ url_for('users.select_quiz') }}" class="nav-link">Select Quiz</a>
+            {% endif %}
+        </aside>
     {% endif %}
-    {% endwith %}
-    <ul>
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-        {% if current_user.is_authenticated %}
-        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-        {% else %}
-        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
         {% endif %}
-    </ul>
-    <div id="content">
-        {% if current_user.is_authenticated %}
-        Hi {{ current_user.fullname }}!
-        {% endif %}
+        {% endwith %}
+        <!-- Page Content -->
         <div class="container">
-            <div>
-                {% if current_user.is_authenticated %}
-                <ul>
-                    <li><a href="{{ url_for('users.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ url_for('users.leaderboard') }}">Leaderboard</a></li>
-                    <li><a href="{{ url_for('users.select_quiz') }}">Select Quiz</a></li>
-                </ul>
-                {% endif %}
-            </div>
-            <div>
-                {% block content %}{% endblock %}
-            </div>
+            {% block content %}{% endblock %}
         </div>
-    </div>
+    </main>
+
 </body>
 
 </html>

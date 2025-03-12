@@ -1,48 +1,30 @@
 {% extends "layout.html" %}
 {% block title %}Attempt Quiz: {{quiz.name}}{% endblock %}
 {% block content %}
-{% block head %}
-{{ super() }}
-<style>
-    .timer {
-        color: red;
-        font-size: 12px;
-    }
-</style>
-{% endblock %}
-<h2>{{quiz.name}}</h2>
+<h1 class="page-title">{{quiz.name}}</h1>
+
 {% if quiz.time_duration > 0 %}
-<div class="timer">
-    <span id="timer">00:00</span>
-</div>
+<span id="timer" class="quiz-timer">00:00</span>
 {% endif %}
-<form id="quizForm" method="post">
-    <div>
-        {% for question in questions %}
-        <div>
-            <h5>Q:{{ question.question_statement }}</h5>
-            <h6>Choose answer:</h6>
-            <div>
-                <input type="radio" name="question_{{ question.id }}" value="1">
-                <label>{{ question.option1 }}</label>
-            </div>
-            <div>
-                <input type="radio" name="question_{{ question.id }}" value="2">
-                <label>{{ question.option2 }}</label>
-            </div>
-            <div>
-                <input type="radio" name="question_{{ question.id }}" value="3">
-                <label>{{ question.option3 }}</label>
-            </div>
-            <div>
-                <input type="radio" name="question_{{ question.id }}" value="4">
-                <label>{{ question.option4 }}</label>
-            </div>
+
+<form id="quizForm" class="quiz-form" method="POST">
+    {% for question in questions %}
+    <div class="quiz-question">
+        <div class="question-number">Question #{{ loop.index }}</div>
+        <div class="question-statement">{{ question.question_statement }}</div>
+        <div class="quiz-options">
+            {% for option in [question.option1, question.option2, question.option3, question.option4] %}
+            <label class="radio-option">
+                <input type="radio" name="question_{{ question.id }}" value="{{ loop.index }}" required>
+                {{ option }}
+            </label>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-    <button type="submit">Submit Quiz</button>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary btn-block">Submit Quiz</button>
 </form>
+
 
 <script>
     const quizDuration = {{ quiz.time_duration }};
