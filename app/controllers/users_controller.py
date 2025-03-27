@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, flash, url_for, request
 from app import db
 from flask_login import current_user, login_required
 from random import shuffle
+from app.forms import UserDetailsForm, ChangePasswordForm
 from app.models.chapter import Chapter
 from app.models.quiz import Quiz
 from app.models.score import Score
@@ -94,3 +95,40 @@ def select_quiz():
                            subjects=subjects,
                            chapters=chapters,
                            quizzes=quizzes)
+
+@users_bp.route("/update-profile", methods=['GET', 'POST'])
+@login_required
+def update_profile():
+    user = current_user
+    form = UserDetailsForm(obj=user)
+
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.fullname = form.fullname.data
+        user.qualification = form.qualification.data
+        user.dob = form.dob.data
+
+        db.session.commit()
+        flash("User details updated successfully!", category="success")
+        return redirect(url_for("users.dashboard"))
+
+    return render_template("user/update-profile.html",
+                           form=form,
+                           user=user)
+
+@users_bp.route("/change-password", methods=['GET', 'POST'])
+@login_required
+def change_password():
+    user = current_user
+    form = ChangePasswordForm(obj=user)
+
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+
+        db.session.commit()
+        flash("Password has been changed successfully!", category="success")
+        return redirect(url_for("users.dashboard"))
+
+    return render_template("user/change-password.html",
+                           form=form,
+                           user=user)
