@@ -1,5 +1,6 @@
 from functools import wraps
-from flask import Blueprint, render_template, redirect, flash, url_for
+from flask import Blueprint, render_template, redirect, flash, request, url_for
+from sqlalchemy import and_
 from app import db
 from app.forms import SubjectForm, ChapterForm, QuizForm, QuestionForm
 from flask_login import current_user, login_required
@@ -54,11 +55,19 @@ def admin_dashboard():
 
 # SUBJECT ROUTES
 
-@admin_bp.route("/admin/manage_subjects")
+@admin_bp.route("/admin/manage_subjects", methods=['GET', 'POST'])
 @admin_login_required
 def manage_subjects():
     subjects = Subject.query.all()
-    return render_template("admin/subject/manage_subjects.html", subjects=subjects)
+    query = request.form.get('query', '')
+
+    if request.method == 'POST':
+        subjects = Subject.query.filter(
+            Subject.name.ilike(f'%{query}%')
+        ).all()
+
+    return render_template("admin/subject/manage_subjects.html",
+                           query=query, subjects=subjects)
 
 @admin_bp.route("/admin/add_subject", methods=['GET', 'POST'])
 @admin_login_required
@@ -96,16 +105,28 @@ def delete_subject(id):
 
 # CHAPTER ROUTES
 
-@admin_bp.route("/admin/subject/<int:subject_id>/chapters")
+@admin_bp.route("/admin/subject/<int:subject_id>/chapters", methods=['GET', 'POST'])
 @admin_login_required
 def manage_chapters(subject_id):
     subject = Subject.query.get_or_404(subject_id)
     if subject:
         chapters = subject.chapters
+
+        query = request.form.get('query', '')
+
+        if request.method == 'POST':
+            chapters = Chapter.query.filter(
+                and_(
+                    Chapter.subject_id == subject_id,
+                    Chapter.name.ilike(f'%{query}%')
+                )
+            ).all()
+
     else:
         chapters = []
     return render_template("admin/chapter/manage_chapters.html",
                            subject=subject,
+                           query=query,
                            chapters=chapters)
 
 @admin_bp.route("/admin/subject/<int:subject_id>/add_chapter", methods=['GET', 'POST'])
@@ -155,15 +176,26 @@ def delete_chapter(subject_id, chapter_id):
 
 # QUIZ ROUTES
 
-@admin_bp.route("/admin/chapter/<int:chapter_id>/quizzes")
+@admin_bp.route("/admin/chapter/<int:chapter_id>/quizzes", methods=['GET', 'POST'])
 @admin_login_required
 def manage_quizzes(chapter_id):
     chapter = Chapter.query.get_or_404(chapter_id)
     if chapter:
         quizzes = chapter.quizzes
+
+        query = request.form.get('query', '')
+
+        if request.method == 'POST':
+            quizzes = Quiz.query.filter(
+                and_(
+                    Quiz.chapter_id == chapter_id,
+                    Quiz.name.ilike(f'%{query}%')
+                )
+            ).all()
     else:
         quizzes = []
     return render_template("admin/quiz/manage_quizzes.html",
+                           query=query,
                            chapter=chapter,
                            quizzes=quizzes)
 

@@ -5,6 +5,18 @@
 
 <a href="{{ url_for('admin.add_chapter', subject_id=subject.id) }}" class="btn btn-primary mb-4">Add Chapter</a>
 
+<form method="post">
+    <table class="table">
+        <td>Search Chapters:</td>
+        <td>
+            <input class="form-control" type="text" name="query" placeholder="Search by name" value="{{ query }}">
+        </td>
+        <td>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </td>
+    </table>
+</form>
+
 <div class="table-container">
     <table class="table">
         <thead>
