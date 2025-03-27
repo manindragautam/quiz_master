@@ -24,14 +24,12 @@ class SubjectForm(FlaskForm):
 class ChapterForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     description = TextAreaField('Description')
-    subject_id = SelectField('Subject', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class QuizForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     date_of_quiz = DateTimeLocalField('Date of Quiz', validators=[DataRequired()])
     time_duration = IntegerField('Time Duration (In seconds)')
-    chapter_id = SelectField('Chapter', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class QuestionForm(FlaskForm):

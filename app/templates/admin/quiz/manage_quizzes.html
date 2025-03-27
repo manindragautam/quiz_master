@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
-{% block title %}Manage Quizzes{% endblock %}
+{% block title %}Manage Quizzes for {{ chapter.name }}{% endblock %}
 {% block content %}
-<h1 class="page-title">Manage Quizzes</h1>
+<h1 class="page-title">Manage Quizzes for {{ chapter.name }}</h1>
 
-<a href="{{ url_for('admin.add_quiz') }}" class="btn btn-primary mb-4">Add Quiz</a>
+<a href="{{ url_for('admin.add_quiz', chapter_id=chapter.id) }}" class="btn btn-primary mb-4">Add Quiz</a>
 
 <div class="table-container">
     <table class="table">
@@ -26,14 +26,14 @@
             <td>{{ quiz.time_duration }}</td>
 
             <td colspan="3" class="action-buttons">
-                <a href="{{ url_for('admin.edit_quiz', id=quiz.id) }}" class="btn btn-edit btn-sm">Edit</a>
-                <form action="{{ url_for('admin.delete_quiz', id=quiz.id) }}" method="post">
+                <a href="{{ url_for('admin.edit_quiz', chapter_id=chapter.id, quiz_id=quiz.id) }}" class="btn btn-edit btn-sm">Edit</a>
+                <form action="{{ url_for('admin.delete_quiz', chapter_id=chapter.id, quiz_id=quiz.id) }}" method="post">
                     <button
                     class="btn btn-danger btn-sm"
                         onclick="return confirm('Are you sure, you want to delete this quiz?')">Delete</button>
                 </form>
-                <a href="{{ url_for('admin.manage_quiz_questions', quiz_id=quiz.id) }}" class="btn btn-view btn-sm">
-                    Manage Quiz Questions
+                <a href="{{ url_for('admin.manage_questions', quiz_id=quiz.id) }}" class="btn btn-view btn-sm">
+                    Manage Questions
                 </a>
             </td>
         </tr>

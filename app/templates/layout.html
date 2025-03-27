@@ -29,8 +29,6 @@
             {% if current_user.is_admin %}
             <a href="{{ url_for('admin.admin_dashboard') }}" class="nav-link">Dashboard</a>
             <a href="{{ url_for('admin.manage_subjects') }}" class="nav-link">Manage Subjects</a>
-            <a href="{{ url_for('admin.manage_chapters') }}" class="nav-link">Manage Chapters</a>
-            <a href="{{ url_for('admin.manage_quizzes') }}" class="nav-link">Manage Quizzes</a>
             <a href="{{ url_for('admin.manage_users') }}" class="nav-link">Manage Users</a>
             {% else %}
             <a href="{{ url_for('users.dashboard') }}" class="nav-link">Dashboard</a>
